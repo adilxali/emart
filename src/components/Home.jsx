@@ -22,7 +22,7 @@ function Home() {
       >
         <SwiperSlide>
         <div className="card bg-dark text-black border-0">
-        <img src="/src/assets/hero5.jpg" className="card-img" alt="..." height='550px'/>
+        <img src="/assets/hero5.jpg" className="card-img" alt="..." height='550px'/>
         <div className="card-img-overlay d-flex flex-column justify-content-center"> 
         <div className="container">
 
@@ -37,17 +37,17 @@ function Home() {
         </SwiperSlide>
         <SwiperSlide>
         <div className="card bg-dark text-black border-0">
-        <img src="/src/assets/hero1.jpg" className="card-img" alt="..." height='550px'/>
+        <img src="/assets/hero1.jpg" className="card-img" alt="..." height='550px'/>
         </div>
         </SwiperSlide>
         <SwiperSlide><div className="card bg-dark text-black border-0">
-        <img src="/src/assets/hero2.jpg" className="card-img" alt="..." height='550px'/>
+        <img src="/assets/hero2.jpg" className="card-img" alt="..." height='550px'/>
         </div></SwiperSlide>
         <SwiperSlide><div className="card bg-dark text-black border-0">
-        <img src="/src/assets/hero3.jpg" className="card-img" alt="..." height='550px'/>
+        <img src="/assets/hero3.jpg" className="card-img" alt="..." height='550px'/>
         </div></SwiperSlide>
         <SwiperSlide><div className="card bg-dark text-black border-0">
-        <img src="/src/assets/hero4.jpg" className="card-img" alt="..." height='550px'/>
+        <img src="/assets/hero4.jpg" className="card-img" alt="..." height='550px'/>
         </div></SwiperSlide>
         
       </Swiper>
