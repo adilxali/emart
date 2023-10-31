@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
+import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/action/index";
+// import { addToCart } from "../redux/action/index";
+import { addToCart } from "../features/cartSlice";
 import Swal from "sweetalert2";
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(products);
+  const [selectedOption, setSelectedOption] = useState("All Products");
+
+  const options = [
+    "All Products",
+    "Men's Clothing",
+    "Women's Clothing",
+    "Jewelery",
+    "Electronics",
+  ];
+
   let componentMounted = true;
 
   const dispatch = useDispatch();
@@ -33,7 +44,6 @@ export default function Products() {
         setProducts(data);
         setFilter(data);
         setLoading(false);
-        
       }
       return () => {
         componentMounted = false;
@@ -41,93 +51,70 @@ export default function Products() {
     };
     getProducts();
   }, []);
-  const Loading = () => {
-    return (<>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    <div className="col-md-3">
-      <Skeleton height={350}/>
-    </div>
-    </>);
-  };
+
   const filterProducts = (cat) => {
-    const newProducts = products.filter((product) => product.category === cat);
-    setFilter(newProducts);
-    console.log(newProducts)
+    if (cat === "all products") {
+      setSelectedOption("All Products");
+      setFilter(products);
+    } else {
+      const newProducts = products.filter(
+        (product) => product.category === cat
+      );
+      setFilter(newProducts);
+      setSelectedOption(cat);
+    }
   };
 
   const ShowProducts = () => {
     return (
       <>
-        <div className="buttons d-flex justify-content-center mb-5 pb-5">
-          <button className="btn btn-outline-dark me-1" onClick={()=>{
-            setFilter(products);
-          }}>All Products</button>
-          <button className="btn btn-outline-dark me-1"
-          onClick={()=>{
-            filterProducts("men's clothing");
-          }
-          }
-          >Men's Cloths</button>
-          <button className="btn btn-outline-dark me-1"
-           onClick={()=>{
-            filterProducts("women's clothing");
-          }
-          }
-          >Women's Cloths</button>
-          <button className="btn btn-outline-dark me-1"
-          onClick={()=>{
-            filterProducts("jewelery");
-          }
-          }
-          >Jewellary's</button>
-          <button className="btn btn-outline-dark me-1"
-          onClick={()=>{
-            filterProducts("electronics");
-          }
-          }
-          >Electronics </button>
+        <div className="col-12 col-sm-10 d-flex flex-wrap gap-2 justify-content-center mb-5 pb-5">
+          {options.map((option) => {
+            return (
+              <button
+                className={`btn  ${
+                  option === selectedOption ? "btn-dark" : "btn-outline-dark"
+                }`}
+                key={option}
+                onClick={() => filterProducts(option.toLowerCase())}
+              >
+                {option}
+              </button>
+            );
+          })}
         </div>
         {filter.map((product) => {
           return (
-            <>
-              <div className="col-md-3 mb-2" >
-                <div className="card h-100 text-center p-4" key={product.title} >
-                  <img src={product.image} className="card-img-top" alt={product.Filter} height='250px' />
-                  <div className="card-body">
-                    <h5 className="card-title ">{product.title.substring(0,12)}...</h5>
-                    <p className="card-text lead fw-bold">
+            <div className="col-md-3 mb-2" key={product.id}>
+              <div className="card h-100 text-center p-4">
+                <img
+                  src={product.image}
+                  className="card-img-top"
+                  alt={product.Filter}
+                  height="250px"
+                />
+                <div className="card-body">
+                  <h5 className="card-title ">
+                    {product.title.substring(0, 12)}...
+                  </h5>
+                  <p className="card-text lead fw-bold">
                     &#8377;{product.price}
-                    </p>
-                    <Link to={`/products/${product.id}`} className="btn btn-outline-dark  me-4">
-                      Buy Now
-                    </Link>
-                    <button className="btn btn-dark" onClick={()=>addProduct(product)}>
-                      Add to Cart
-                    </button>
-                  </div>
+                  </p>
+                  <Link
+                    to={`/products/${product.id}`}
+                    className="btn btn-outline-dark  me-4"
+                  >
+                    Buy Now
+                  </Link>
+                  <button
+                    className="btn btn-dark"
+                    onClick={() => addProduct(product)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
-            </>
+            </div>
           );
         })}
       </>
