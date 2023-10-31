@@ -9,7 +9,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(products);
-  const [selectedOption, setSelectedOption] = useState("All Products");
+  const [selectedOption, setSelectedOption] = useState("all products");
 
   const options = [
     "All Products",
@@ -54,7 +54,7 @@ export default function Products() {
 
   const filterProducts = (cat) => {
     if (cat === "all products") {
-      setSelectedOption("All Products");
+      setSelectedOption("all products");
       setFilter(products);
     } else {
       const newProducts = products.filter(
@@ -71,15 +71,19 @@ export default function Products() {
         <div className="col-12 col-sm-10 d-flex flex-wrap gap-2 justify-content-center mb-5 pb-5">
           {options.map((option) => {
             return (
-              <button
-                className={`btn  ${
-                  option === selectedOption ? "btn-dark" : "btn-outline-dark"
-                }`}
-                key={option}
-                onClick={() => filterProducts(option.toLowerCase())}
-              >
-                {option}
-              </button>
+              <>
+                <button
+                  className={`btn  ${
+                    option.toLowerCase() === selectedOption
+                      ? "btn-dark"
+                      : "btn-outline-dark"
+                  }`}
+                  key={option}
+                  onClick={() => filterProducts(option.toLowerCase())}
+                >
+                  {option}
+                </button>
+              </>
             );
           })}
         </div>
