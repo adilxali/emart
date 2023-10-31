@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../redux/action/index'
+import { addToCart } from "../features/cartSlice";
 import Swal from 'sweetalert2';
 const Product = () => {
     const {id} = useParams();

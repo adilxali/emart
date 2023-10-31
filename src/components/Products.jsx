@@ -91,12 +91,14 @@ export default function Products() {
           return (
             <div className="col-md-3 mb-2" key={product.id}>
               <div className="card h-100 text-center p-4">
-                <img
-                  src={product.image}
-                  className="card-img-top"
-                  alt={product.Filter}
-                  height="250px"
-                />
+                <Link to={`/products/${product.id}`}>
+                  <img
+                    src={product.image}
+                    className="card-img-top"
+                    alt={product.Filter}
+                    height="250px"
+                  />
+                </Link>
                 <div className="card-body">
                   <h5 className="card-title ">
                     {product.title.substring(0, 12)}...
